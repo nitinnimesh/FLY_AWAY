@@ -38,11 +38,8 @@ public class FlyAway extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		"+passengers);
+		
 
-out.println("HelloGuys");
-
-out.print("I am in admin functinality");
 
 		
 	}

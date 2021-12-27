@@ -35,33 +35,17 @@ public class SETFlight extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String Source=request.getParameter("Source_Address");
 		String Desti=request.getParameter("Destination_Address");
-		String date=request.getParameter("date");
-		
+		//int date=Integer.parseInt(request.getParameter("date"));
+		int price = Integer.parseInt(request.getParameter("price"));
+		int flight=Integer.parseInt(request.getParameter("flight_no"));
 		
 		PrintWriter out=response.getWriter();	
-		try{  
-			Class.forName("com.mysql.cj.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/flyaway","root","root");  
-			PreparedStatement stmt=con.prepareStatement("select date from flights where password=? && ;");  
-			stmt.setString(1,Pass);
-			ResultSet rs=stmt.executeQuery();  
-			if(rs.next()) { 
-				String username=rs.getString(1);
-				if(username.equals(User)) {
-				out.println("Welcome "+rs.getString(1));
-				RequestDispatcher rd=request.getRequestDispatcher("/FlightSchedule.jsp");  
-		        rd.forward(request, response);  
-				
-				} 
-				else {
-					out.println("Username is not available \t NO LOGGED IN");
-				}
-			}
-			
-			con.close();  
-			}catch(Exception e){ out.println(e);}
+		
+		out.print(Source+Desti+price+flight);
+		
 	}
 
 }
