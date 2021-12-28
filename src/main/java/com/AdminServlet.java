@@ -39,8 +39,7 @@ public class AdminServlet extends HttpServlet {
 				out.println("Welcome "+rs.getString(1));
 				RequestDispatcher rd=request.getRequestDispatcher("/FlightSchedule.jsp");  
 		        rd.forward(request, response);  
-				
-				} 
+								} 
 				else {
 					out.println("Username is not available \t NO LOGGED IN");
 				}

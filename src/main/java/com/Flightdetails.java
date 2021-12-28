@@ -34,9 +34,6 @@ public class Flightdetails extends HttpServlet {
 		int passengers= Integer.parseInt(request.getParameter("numberofpassenger"));
 		String date=request.getParameter("date");
 		PrintWriter out=response.getWriter();
-		
-		
-		
 
 	}
 

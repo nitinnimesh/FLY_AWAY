@@ -8,7 +8,6 @@
 </head>
 <body>
 <form action ="AdminServlet" method="post">
-
 <label>Username</label><input type="text" name="username"></br>
 <label>PassWord</label><input type="text" name="password"></br>
 <input type="Submit" value="LOGIN">

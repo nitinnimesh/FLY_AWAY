@@ -8,8 +8,6 @@
 <title></title>
 </head>
 <body>
-
-
 <div name="set flight" align="left">
 <form action ="SETFlight" method="post">
 <label>Destination Address </label>

@@ -3,10 +3,8 @@ package com;
 import java.sql.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,14 +36,39 @@ public class SETFlight extends HttpServlet {
 		
 		String Source=request.getParameter("Source_Address");
 		String Desti=request.getParameter("Destination_Address");
-		//int date=Integer.parseInt(request.getParameter("date"));
 		int price = Integer.parseInt(request.getParameter("price"));
-		int flight=Integer.parseInt(request.getParameter("flight_no"));
-		
+		int flight_id=Integer.parseInt(request.getParameter("flight_no"));
+		String flight=request.getParameter("flight_no");
+		String date=request.getParameter("date");
+		int seat=0;
 		PrintWriter out=response.getWriter();	
-		
-		out.print(Source+Desti+price+flight);
-		
-	}
+		out.print(Source+Desti+price+flight+date);
+		try{  
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/flyaway","root","root");  
+			  	
+			PreparedStatement stmt1=con.prepareStatement("select capacity from flights where flight_id=?;");  
+			stmt1.setString(1,flight);
+			ResultSet rs=stmt1.executeQuery();  
+			if(rs.next()) { 
+				 seat=Integer.parseInt((rs.getString(1)));}	
+			
+			
+			PreparedStatement stmt=con.prepareStatement("insert into schedule(flight_id,destination,source,date,seat,price) values(?,?,?,?,?,?);");
+			stmt.setInt(1, flight_id);
+			stmt.setString(2, Source);
+			stmt.setString(3, Desti);
+			stmt.setString(4, date);
+			stmt.setInt(5, seat);
+			stmt.setInt(6, price);
+			
+			int i=stmt.executeUpdate();
+			System.out.println(i+" records inserted");  
+					
+					con.close();  
+		}catch(Exception e){ out.println(e);}
 
 }
+}
+
+	
