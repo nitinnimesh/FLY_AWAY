@@ -12,19 +12,20 @@
 <form action ="SETFlight" method="post">
 <label>Destination Address </label>
 <select id="Destination Address" name="Destination_Address">
-  <option value="GO">Goa</option>
-  <option value="Gu">Gujarat</option>
-  <option value="HRY">Haryana</option>
-  <option value="HP">Himachal Pradesh</option>
-  <option value="JK">Jharkhand</option>
-</select></br>
-<label>Source Address </label>
-<select id="Source Address" name="Source_Address">
-  <option value="AP">Andhra Pradesh</option>
+ <option value="AP">Andhra Pradesh</option>
   <option value="ARP">Arunachal Pradesh</option>
   <option value="AS">Assam</option>
   <option value="BH">Bihar</option>
   <option value="CH">Chhattisgarh</option>
+
+</select></br>
+<label>Source Address </label>
+<select id="Source Address" name="Source_Address">
+   <option value="GO">Goa</option>
+  <option value="Gu">Gujarat</option>
+  <option value="HRY">Haryana</option>
+  <option value="HP">Himachal Pradesh</option>
+  <option value="JK">Jharkhand</option>
 </select></br>
 <label>Date of Travel</label><input type="date" name="date"></br>
 <label>Price of flights</label><input type="text" name="price"></br>

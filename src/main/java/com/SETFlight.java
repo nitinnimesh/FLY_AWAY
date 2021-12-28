@@ -53,20 +53,21 @@ public class SETFlight extends HttpServlet {
 			if(rs.next()) { 
 				 seat=Integer.parseInt((rs.getString(1)));}	
 			
-			
 			PreparedStatement stmt=con.prepareStatement("insert into schedule(flight_id,destination,source,date,seat,price) values(?,?,?,?,?,?);");
 			stmt.setInt(1, flight_id);
-			stmt.setString(2, Source);
-			stmt.setString(3, Desti);
+			stmt.setString(2, Desti);
+			stmt.setString(3, Source);
 			stmt.setString(4, date);
 			stmt.setInt(5, seat);
 			stmt.setInt(6, price);
 			
 			int i=stmt.executeUpdate();
-			System.out.println(i+" records inserted");  
+		out.println(i+" records inserted");  
 					
 					con.close();  
 		}catch(Exception e){ out.println(e);}
+		
+	
 
 }
 }

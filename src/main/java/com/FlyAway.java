@@ -1,13 +1,20 @@
 package com;
 
 import java.io.IOException;
+
+
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class FlyAway
@@ -15,32 +22,45 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/FlyAway")
 public class FlyAway extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FlyAway() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String Source=request.getParameter("Source_Address");
+		String Desti=request.getParameter("Destination_Address");
+		int seat=Integer.parseInt(request.getParameter("numberofpassenger"));
+		String date=request.getParameter("date");
+		PrintWriter out =response.getWriter();
 		
-
-
+		try{  
+			Class.forName("com.mysql.cj.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/flyaway","root","root");   	
+			PreparedStatement stmt1=con.prepareStatement("select * from schedule where (destination = ? and source=?) and date=?;");  
+			stmt1.setString(1, Desti);
+			stmt1.setString(2, Source);
+			stmt1.setString(3, date);
+			ResultSet rs=stmt1.executeQuery();  
+			out.println("<html><body> "
+					+ "<form action='PaymentGateWay' method='post' >   ");
+			
+			while(rs.next()) { 
+				int available_seat=rs.getInt(6);
+				
+				if(available_seat>=seat) {
+					out.println("<input type='radio' name='schedule' value="+rs.getInt(1)+">");	
+				out.println(("\tFlights\t"+rs.getInt(2)+" DATE \t"+rs.getString(5)+"\tSEAT Available\t"+rs.getInt(6)+"\tPrice\t"+rs.getInt(7)));
+				HttpSession session=request.getSession(); 
+				session.setAttribute("seat", seat);
+		        session.setAttribute("Price",rs.getInt(7)); 
+		        session.setAttribute("Seat_Availble",rs.getInt(6)); 
+		       
+				}
+				}
+			out.println(" <input type='submit' value ='click here to continue'></form></body></html>");
+			
+			
+			
+			con.close();  
+		}catch(Exception e){ out.println(e);}
 		
 	}
 
