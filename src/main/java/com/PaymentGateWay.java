@@ -3,6 +3,7 @@ package com;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,18 +26,20 @@ public class PaymentGateWay extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-	      HttpSession session=request.getSession(false);  
-	        int seat=(int) session.getAttribute("seat"); 
-	        int Price=(int)session.getAttribute("Price"); 
-	        int Seat_Availble=(int)session.getAttribute("Seat_Availble");
-	        String schedule =request.getParameter("schedule");
-	        
-	        PrintWriter out =response.getWriter();
-	        out.println(seat+"\t"+Price+"\t"+Seat_Availble+"\t"+schedule+"\t"+"HELLO");
-	        
-	        out.println("");
-	        
-	        
+		String customername = request.getParameter("customername");
+		String contactno = request.getParameter("contactno");
+		String email = request.getParameter("email");
+		String Address = request.getParameter("Address");
+		HttpSession session=request.getSession(false);  
+        int seat=(int) session.getAttribute("seat"); 
+        int Price=(int)session.getAttribute("Price"); 
+        int Seat_Availble=(int)session.getAttribute("Seat_Availble");
+        int total_price =Price*seat;
+	     PrintWriter out=response.getWriter();
+	     out.println("Name "+customername+"Contact NO."+contactno+"Mail"+email+"Adddress"
+	     +Address+"Your booked setas"+seat+"Total price"+total_price+"Seat avaialbe"+Seat_Availble);
+	     
+	     
 	}
 
 }

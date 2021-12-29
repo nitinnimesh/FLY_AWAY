@@ -40,13 +40,13 @@ public class FlyAway extends HttpServlet {
 			stmt1.setString(3, date);
 			ResultSet rs=stmt1.executeQuery();  
 			out.println("<html><body> "
-					+ "<form action='PaymentGateWay' method='post' >   ");
+					+ "<form action='UserServlet' method='post' >   ");
 			
 			while(rs.next()) { 
 				int available_seat=rs.getInt(6);
 				
 				if(available_seat>=seat) {
-					out.println("<input type='radio' name='schedule' value="+rs.getInt(1)+">");	
+					out.println("</br><input type='radio' name='schedule' value="+rs.getInt(1)+">");	
 				out.println(("\tFlights\t"+rs.getInt(2)+" DATE \t"+rs.getString(5)+"\tSEAT Available\t"+rs.getInt(6)+"\tPrice\t"+rs.getInt(7)));
 				HttpSession session=request.getSession(); 
 				session.setAttribute("seat", seat);
@@ -55,7 +55,7 @@ public class FlyAway extends HttpServlet {
 		       
 				}
 				}
-			out.println(" <input type='submit' value ='click here to continue'></form></body></html>");
+			out.println(" </br><input type='submit' value ='CLICK HERE TO BOOK'></form></body></html>");
 			
 			
 			
