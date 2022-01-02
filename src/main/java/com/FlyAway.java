@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,13 +53,10 @@ public class FlyAway extends HttpServlet {
 				session.setAttribute("seat", seat);
 		        session.setAttribute("Price",rs.getInt(7)); 
 		        session.setAttribute("Seat_Availble",rs.getInt(6)); 
-		       
+		  	}
+								
 				}
-				}
-			out.println(" </br><input type='submit' value ='CLICK HERE TO BOOK'></form></body></html>");
-			
-			
-			
+	out.println(" </br><input type='submit' value ='CLICK HERE TO BOOK'></form></body></html>");
 			con.close();  
 		}catch(Exception e){ out.println(e);}
 		

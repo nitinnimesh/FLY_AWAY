@@ -42,7 +42,7 @@ public class SETFlight extends HttpServlet {
 		String date=request.getParameter("date");
 		int seat=0;
 		PrintWriter out=response.getWriter();	
-		out.print(Source+Desti+price+flight+date);
+		
 		try{  
 			Class.forName("com.mysql.cj.jdbc.Driver");  
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/flyaway","root","root");  
@@ -62,7 +62,7 @@ public class SETFlight extends HttpServlet {
 			stmt.setInt(6, price);
 			
 			int i=stmt.executeUpdate();
-		out.println(i+" records inserted");  
+		out.println(i+" We have Sucessfully made Schdules");  
 					
 					con.close();  
 		}catch(Exception e){ out.println(e);}

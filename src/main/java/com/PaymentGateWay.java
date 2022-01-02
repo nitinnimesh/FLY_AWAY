@@ -48,8 +48,6 @@ public class PaymentGateWay extends HttpServlet {
         
         
 	     PrintWriter out=response.getWriter();
-	     out.println("Name "+customername+"Contact NO."+contactno+"Mail"+email+"Adddress"
-	     +Address+"Your booked setas"+seat+"Total price"+total_price+"Seat avaialbe"+Seat_Availble);
 	    
 	 	try{  
 			Class.forName("com.mysql.cj.jdbc.Driver");  
@@ -59,7 +57,7 @@ public class PaymentGateWay extends HttpServlet {
 			stmt1.setInt(1, seat_reserve);
 			stmt1.setInt(2, Schedule_id);
 			int rs=stmt1.executeUpdate();
-			out.println(rs+" Your Seat has been Successfully Booked!!");  
+			
 			
 			PreparedStatement stmt=con.prepareStatement("insert into airline_booked(schedule_id, customer_name , contact_no, email , seat_booked,paid  ) values(?,?,?,?,?,?);");
 			stmt.setInt(1, Schedule_id);
@@ -70,9 +68,18 @@ public class PaymentGateWay extends HttpServlet {
 			stmt.setInt(6, total_price);
 			
 			int i=stmt.executeUpdate();
-		out.println(i+" We have received Payment Thanks for payment ");  
+		out.println("<html><body><h1>RECEIPT</br> "
+				+ "Your Seat has been Successfully Booked!!</h1>"
+				+ "<h2>Name</h2>"+ customername+
+				"<h2>Email </h2>"+ contactno+""
+						+ "<h2>Contact NO.</h2>"+ email+""
+								+ "<h2> Booked Seats</h2>"+ seat+""
+										+ "<h2>Total price</h2>"+ total_price+""
+								+ "</body></html> ");  
 					
 					con.close();  
+					
+					 
 		}catch(Exception e){ out.println(e);}
 	     
 	   
